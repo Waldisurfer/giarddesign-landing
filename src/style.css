@@ -1,0 +1,75 @@
+@import "tailwindcss";
+
+/* Design tokens — values extracted from Figma via REST API (fl2CvLYvkG2uTLEvaPqwhg).
+   NOTE (reversed vs the initial assumption): headings are set in Montserrat (Medium),
+   while the italic accents ("kompleksowo", "z pasją", "projekty", "Instagramie")
+   are Inter Medium Italic. Body/UI: Inter Regular. */
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Montserrat", var(--font-sans);
+
+  /* Colors (hex from Figma fills) */
+  --color-ink: #111111;      /* text + footer background */
+  --color-cream: #f5f0ec;    /* Offer/Instagram section background + light text on green */
+  --color-sand: #dcc1ab;     /* beige — Hero and Projects gallery background */
+  --color-sand-fade: #d6b79e; /* gallery fade-out gradient end (to alpha 0) */
+  --color-forest: #1b5b31;   /* green — panels, buttons, labels, links */
+
+  /* Typography (desktop 1440 from Figma: size / line-height / letter-spacing) */
+  --text-hero: 60px;         /* Montserrat 500, lh 70px */
+  --text-hero--line-height: 70px;
+  --text-h2: 48px;           /* Montserrat 500, lh 55px; accent: Inter 500 italic */
+  --text-h2--line-height: 55px;
+  --text-h3: 28px;           /* Montserrat 500, lh 32px, ls -1.4px (offer cards) */
+  --text-h3--line-height: 32px;
+  --text-h3--letter-spacing: -0.05em;
+  --text-cta-lg: 40px;       /* Montserrat 400, lh 48px (Instagram panel) */
+  --text-cta-lg--line-height: 48px;
+  --text-body: 16px;         /* Inter 400, lh 24px, ls 0 / -0.2px */
+  --text-body--line-height: 24px;
+  --text-small: 14px;        /* Inter 400, lh 21px, ls -0.1px (nav, card copy) */
+  --text-small--line-height: 21px;
+  --text-label: 12px;        /* Inter 400, lh 18px, ls -0.1px (small label above H2) */
+  --text-label--line-height: 18px;
+
+  /* Layout */
+  --container-page: 1264px;  /* main grid: nav 1262, card row 3×378 + 2×64 */
+  --container-narrow: 1040px;/* section copy, Instagram panel, footer inner */
+
+  /* Radii */
+  --radius-card: 28px;       /* offer cards */
+  /* buttons: pill (Figma r:200 → rounded-full) */
+}
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    scroll-behavior: smooth;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+  body {
+    margin: 0;
+    font-family: var(--font-sans);
+    color: var(--color-ink);
+  }
+}
+
+/* Page containers. max-width = grid + 2× gutter, so at ≥1440px the inner
+   content is exactly 1264/1040px (as in Figma) and below that the 24px
+   gutter takes over. */
+@utility container-page {
+  width: 100%;
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+  max-width: calc(var(--container-page) + 3rem);
+}
+@utility container-narrow {
+  width: 100%;
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+  max-width: calc(var(--container-narrow) + 3rem);
+}
