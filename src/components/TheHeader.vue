@@ -144,14 +144,15 @@ watch(isMobileOpen, (open) => {
                 :class="{ 'rotate-180': isOfferOpen }"
               />
             </button>
-            <!-- Panel is centred under the trigger (left-1/2 + negative margin, so the
-                 Transition's transform stays free for the animation). pt-3 bridges the
-                 visual gap — the cursor never leaves the <li>, so hover-open is stable. -->
+            <!-- Panel offset -8px: its 24px item padding then puts the link text in
+                 the exact column of the 'Oferta' label (which sits 16px in, px-4).
+                 pt-3 bridges the visual gap — the cursor never leaves the <li>,
+                 so hover-open is stable. -->
             <Transition name="dropdown">
               <div
                 v-show="isOfferOpen"
                 id="offer-dropdown"
-                class="absolute left-1/2 top-full w-52 -ml-[104px] pt-3"
+                class="absolute -left-2 top-full w-52 pt-3"
               >
                 <ul class="bg-white py-3 shadow-[0_16px_40px_rgba(17,17,17,0.12)]">
                   <li v-for="link in OFFER_LINKS" :key="link.label">
