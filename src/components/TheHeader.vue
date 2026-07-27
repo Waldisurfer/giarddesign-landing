@@ -136,7 +136,7 @@ watch(isMobileOpen, (open) => {
               <ul
                 v-show="isOfferOpen"
                 id="offer-dropdown"
-                class="absolute left-4 top-full mt-3 w-52 rounded-2xl bg-white py-3 shadow-[0_16px_40px_rgba(17,17,17,0.12)]"
+                class="absolute left-4 top-full mt-3 w-52 bg-white py-3 shadow-[0_16px_40px_rgba(17,17,17,0.12)]"
               >
                 <li v-for="link in OFFER_LINKS" :key="link.label">
                   <a
