@@ -1,52 +1,27 @@
 <script setup lang="ts">
 import TheHeader from './components/TheHeader.vue'
+import HeroSlider from './components/HeroSlider.vue'
+import OfferSection from './components/OfferSection.vue'
+import AboutSection from './components/AboutSection.vue'
+import ProjectsGallery from './components/ProjectsGallery.vue'
+import InstagramCta from './components/InstagramCta.vue'
+import TheFooter from './components/TheFooter.vue'
 </script>
 
 <template>
+  <a
+    href="#main-content"
+    class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-full focus:bg-forest focus:px-6 focus:py-3 focus:text-small focus:text-cream"
+  >
+    Przejdź do treści głównej
+  </a>
   <TheHeader />
-
-  <main>
-    <!-- Zaślepki sekcji — będą podmieniane na kolejne komponenty. -->
-    <section id="hero" class="bg-sand">
-      <div class="container-page py-24">
-        <h1 class="max-w-[599px] font-display text-hero font-medium">
-          Nowoczesna aranżacja Twojego ogrodu
-        </h1>
-        <p class="mt-11 max-w-[599px] text-body">
-          Marka GiardDesign to wieloletnie doświadczenie i wysoka estetyka realizacji.
-          Oferujemy kompleksowy zakres usług z indywidualnym podejściem do każdego projektu.
-        </p>
-      </div>
-    </section>
-
-    <section id="oferta" class="bg-cream">
-      <div class="container-page py-24">
-        <h2 class="font-display text-h2 font-medium">
-          Działamy <em class="font-sans font-medium italic">kompleksowo</em>
-        </h2>
-      </div>
-    </section>
-
-    <section id="o-firmie" class="bg-forest text-cream">
-      <div class="container-page py-24">
-        <h2 class="font-display text-h2 font-medium">
-          Tworzymy <em class="font-sans font-medium italic">z pasją</em>
-        </h2>
-      </div>
-    </section>
-
-    <section id="realizacje" class="bg-sand">
-      <div class="container-page py-24">
-        <h2 class="font-display text-h2 font-medium">
-          Nasze <em class="font-sans font-medium italic">projekty</em>
-        </h2>
-      </div>
-    </section>
+  <main id="main-content" tabindex="-1" class="outline-none">
+    <HeroSlider />
+    <OfferSection />
+    <AboutSection />
+    <ProjectsGallery />
+    <InstagramCta />
   </main>
-
-  <footer id="kontakt" class="bg-ink text-cream">
-    <div class="container-page py-20">
-      <p class="text-small">Stopka — wkrótce.</p>
-    </div>
-  </footer>
+  <TheFooter />
 </template>
