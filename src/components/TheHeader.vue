@@ -39,9 +39,21 @@ function closeOverlays(returnFocus = false) {
 }
 
 function toggleOffer(event: MouseEvent) {
+  /* On hover-capable devices the menu is already open from pointerenter —
+     a real mouse click should not immediately close it. Keyboard activation
+     (event.detail === 0) and touch still toggle. */
+  const hoverCapable = window.matchMedia('(hover: hover) and (pointer: fine)').matches
+  if (hoverCapable && event.detail > 0 && isOfferOpen.value) return
   isSearchOpen.value = false
   isOfferOpen.value = !isOfferOpen.value
   overlayTrigger = isOfferOpen.value ? (event.currentTarget as HTMLElement) : null
+}
+
+/* Desktop-only hover open/close; touch pointers keep the click behaviour. */
+function onOfferHover(open: boolean, event: PointerEvent) {
+  if (event.pointerType === 'touch') return
+  if (open) isSearchOpen.value = false
+  isOfferOpen.value = open
 }
 
 async function toggleSearch(event: MouseEvent) {
@@ -114,7 +126,7 @@ watch(isMobileOpen, (open) => {
       <!-- Nawigacja desktop -->
       <nav class="hidden items-center lg:flex" aria-label="Nawigacja główna">
         <ul class="flex items-center gap-5 text-small">
-          <li class="relative">
+          <li class="relative" @pointerenter="onOfferHover(true, $event)" @pointerleave="onOfferHover(false, $event)">
             <button
               type="button"
               class="flex items-center gap-2 px-4 py-2 transition-colors hover:text-forest"
@@ -132,22 +144,27 @@ watch(isMobileOpen, (open) => {
                 :class="{ 'rotate-180': isOfferOpen }"
               />
             </button>
+            <!-- Panel is centred under the trigger (left-1/2 + negative margin, so the
+                 Transition's transform stays free for the animation). pt-3 bridges the
+                 visual gap — the cursor never leaves the <li>, so hover-open is stable. -->
             <Transition name="dropdown">
-              <ul
+              <div
                 v-show="isOfferOpen"
                 id="offer-dropdown"
-                class="absolute left-4 top-full mt-3 w-52 bg-white py-3 shadow-[0_16px_40px_rgba(17,17,17,0.12)]"
+                class="absolute left-1/2 top-full w-52 -ml-[104px] pt-3"
               >
-                <li v-for="link in OFFER_LINKS" :key="link.label">
-                  <a
-                    :href="link.href"
-                    class="block py-2.5 pr-6 transition-colors hover:text-forest"
-                    @click="closeOverlays()"
-                  >
-                    {{ link.label }}
-                  </a>
-                </li>
-              </ul>
+                <ul class="bg-white py-3 shadow-[0_16px_40px_rgba(17,17,17,0.12)]">
+                  <li v-for="link in OFFER_LINKS" :key="link.label">
+                    <a
+                      :href="link.href"
+                      class="block px-6 py-2.5 transition-colors hover:bg-cream hover:text-forest"
+                      @click="closeOverlays()"
+                    >
+                      {{ link.label }}
+                    </a>
+                  </li>
+                </ul>
+              </div>
             </Transition>
           </li>
           <li v-for="link in NAV_LINKS" :key="link.label">
