@@ -53,6 +53,9 @@ const SWIPE_THRESHOLD = 48
 let pointerStartX: number | null = null
 
 function onPointerDown(event: PointerEvent) {
+  /* Capturing the pointer retargets pointerup to the container, which suppresses
+     the click on the arrow buttons — so never capture when the press starts there. */
+  if ((event.target as HTMLElement).closest('button')) return
   pointerStartX = event.clientX
   ;(event.currentTarget as HTMLElement).setPointerCapture(event.pointerId)
 }
