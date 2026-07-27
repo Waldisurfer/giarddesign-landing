@@ -10,5 +10,6 @@ import '@fontsource/inter/500-italic.css'
 
 import './style.css'
 import App from './App.vue'
+import { vReveal } from './directives/reveal'
 
-createApp(App).mount('#app')
+createApp(App).directive('reveal', vReveal).mount('#app')
