@@ -113,7 +113,7 @@ const lightboxIndex = ref<number | null>(null)
 </script>
 
 <template>
-  <section id="realizacje" class="scroll-mt-16 bg-sand py-16 lg:py-[120px]">
+  <section id="realizacje" class="scroll-mt-16 bg-sand py-16 lg:pb-11 lg:pt-[120px]">
     <div class="container-page">
       <SectionIntro label="Realizacje">
         Nasze <em class="font-sans font-medium italic tracking-normal">projekty</em>
@@ -121,8 +121,10 @@ const lightboxIndex = ref<number | null>(null)
 
       <!-- Masonry is full-bleed in the design (edge to edge), unlike the heading.
            margin: calc(50% - 50vw) breaks the grid out of the page container. -->
-      <div class="relative mt-12 mx-[calc(50%-50vw)] lg:mt-16">
-        <div ref="gridEl">
+      <div class="relative mt-12 mx-[calc(50%-50vw)] lg:mt-24">
+        <!-- Negative margin swallows Macy's trailing row gap (16px mobile / 43px desktop),
+             so the section's bottom padding starts at the real photo edge like in Figma. -->
+        <div ref="gridEl" class="-mb-4 lg:-mb-[43px]">
           <button
             v-for="(image, i) in visibleImages"
             :key="image.src"
@@ -147,13 +149,13 @@ const lightboxIndex = ref<number | null>(null)
         <!-- Bottom fade + expand button, exactly like the design (gone once expanded) -->
         <div
           v-if="!isExpanded"
-          class="pointer-events-none absolute inset-x-0 bottom-0 h-[320px] bg-gradient-to-t from-sand via-sand/70 to-transparent"
+          class="pointer-events-none absolute inset-x-0 bottom-0 h-[1000px] bg-gradient-to-t from-sand to-transparent"
           aria-hidden="true"
         />
         <button
           v-if="!isExpanded"
           type="button"
-          class="absolute bottom-12 left-1/2 inline-flex min-h-[47px] -translate-x-1/2 items-center gap-2.5 rounded-full bg-white px-7 text-body text-ink shadow-float transition-colors duration-300 hover:bg-cream focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-forest"
+          class="absolute bottom-12 left-1/2 inline-flex min-h-[47px] -translate-x-1/2 items-center gap-2 rounded-full border border-ink px-[22px] text-body text-ink transition-colors duration-300 hover:bg-ink/5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-forest"
           @click="expand"
         >
           Rozwiń
