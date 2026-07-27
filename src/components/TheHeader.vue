@@ -141,7 +141,7 @@ watch(isMobileOpen, (open) => {
                 <li v-for="link in OFFER_LINKS" :key="link.label">
                   <a
                     :href="link.href"
-                    class="block px-6 py-2.5 transition-colors hover:bg-cream hover:text-forest"
+                    class="block py-2.5 pr-6 transition-colors hover:text-forest"
                     @click="closeOverlays()"
                   >
                     {{ link.label }}
