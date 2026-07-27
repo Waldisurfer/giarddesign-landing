@@ -3,11 +3,11 @@ import BaseButton from './ui/BaseButton.vue'
 </script>
 
 <template>
-  <section class="bg-cream py-16 lg:py-[120px]" aria-labelledby="instagram-cta-heading">
+  <section class="bg-cream py-16 lg:py-[60px]" aria-labelledby="instagram-cta-heading">
     <div class="container-page">
       <div
         v-reveal
-        class="flex flex-col items-start gap-8 bg-forest px-8 py-12 lg:mx-auto lg:max-w-[1040px] lg:flex-row lg:items-center lg:justify-between lg:px-14 lg:py-16"
+        class="flex flex-col items-start gap-8 bg-forest px-8 py-12 lg:mx-auto lg:max-w-[1040px] lg:flex-row lg:items-center lg:justify-between lg:px-14 lg:py-[120px]"
       >
         <h2
           id="instagram-cta-heading"

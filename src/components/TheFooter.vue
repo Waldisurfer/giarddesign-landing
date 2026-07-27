@@ -13,7 +13,7 @@ const FOOTER_LINKS = [
 
 <template>
   <footer id="kontakt" class="scroll-mt-16 bg-ink text-cream">
-    <div class="container-page pb-10 pt-14 lg:pb-12 lg:pt-20">
+    <div class="container-page pb-10 pt-14 lg:pb-20 lg:pt-20">
       <div class="lg:mx-auto lg:max-w-[1040px]">
         <!-- Row 1: logo + tagline + CTA -->
         <div class="flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
@@ -26,10 +26,10 @@ const FOOTER_LINKS = [
           </div>
         </div>
 
-        <hr class="mt-10 border-white/15 lg:mt-12" />
+        <hr class="mt-10 border-white/15 lg:mt-15" />
 
         <!-- Row 2: links + contact details -->
-        <div class="mt-8 flex flex-col gap-6 lg:mt-10 lg:flex-row lg:items-center lg:justify-between">
+        <div class="mt-8 flex flex-col gap-6 lg:mt-15 lg:flex-row lg:items-center lg:justify-between">
           <ul class="flex flex-wrap gap-x-8 gap-y-3">
             <li v-for="link in FOOTER_LINKS" :key="link.label">
               <a
@@ -56,7 +56,7 @@ const FOOTER_LINKS = [
         </div>
 
         <!-- Row 3: copyright + agency credit (stays — recruitment requirement) -->
-        <div class="mt-12 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between lg:mt-16">
+        <div class="mt-12 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between lg:mt-[116px]">
           <p class="text-body text-cream/60">Prawa zastrzeżone © 2022</p>
           <p class="flex items-center gap-2 text-body text-cream/60">
             made by

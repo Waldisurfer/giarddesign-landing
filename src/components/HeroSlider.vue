@@ -77,9 +77,9 @@ function onPointerCancel() {
   >
     <p class="sr-only" aria-live="polite">Slajd {{ current + 1 }} z {{ total }}</p>
 
-    <div class="container-page relative lg:min-h-[741px]">
+    <div class="container-page relative lg:min-h-[737px]">
       <!-- Text column: stays on the grid -->
-      <div class="flex flex-col justify-center pb-10 pt-12 lg:min-h-[741px] lg:max-w-[599px] lg:pb-24 lg:pt-16">
+      <div class="flex flex-col justify-center pb-10 pt-12 lg:min-h-[737px] lg:max-w-[599px] lg:pb-24 lg:pt-[92px]">
         <Transition name="slide-copy" mode="out-in">
           <div :key="current">
             <div class="overflow-hidden">

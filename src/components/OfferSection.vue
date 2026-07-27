@@ -34,7 +34,7 @@ const CARDS = [
 </script>
 
 <template>
-  <section id="oferta" class="scroll-mt-16 bg-cream py-16 lg:py-[120px]">
+  <section id="oferta" class="scroll-mt-16 bg-cream py-16 lg:pb-40 lg:pt-[120px]">
     <div class="container-page">
       <SectionIntro label="Oferta">
         Działamy <em class="font-sans font-medium italic tracking-normal">kompleksowo</em>
@@ -47,7 +47,7 @@ const CARDS = [
         </template>
       </SectionIntro>
 
-      <div class="mt-12 grid gap-6 md:grid-cols-3 lg:mt-16 lg:gap-16">
+      <div class="mt-12 grid gap-6 md:grid-cols-3 lg:mt-24 lg:auto-rows-[370px] lg:gap-16">
         <div v-for="(card, i) in CARDS" :key="card.id" v-reveal="i * 120">
           <OfferCard v-bind="card" class="h-full" />
         </div>

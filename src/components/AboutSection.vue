@@ -7,22 +7,25 @@ import aboutImg from '../assets/img/about.webp'
 
 <template>
   <!-- Mirror of the hero: photo bleeds to the LEFT edge, panel holds the grid.
-       Both halves are simply 50/50 full-bleed, so a plain grid does the job. -->
-  <section id="o-firmie" class="grid scroll-mt-16 lg:grid-cols-2">
+       Figma splits the row 688/752 (not 50/50) — the photo shows its full
+       688×720 crop 1:1 and the forest panel is the wider half. -->
+  <section id="o-firmie" class="grid scroll-mt-16 lg:grid-cols-[688fr_752fr]">
     <img
       :src="aboutImg"
       alt="Ogród japoński z kamienną kompozycją przed drewnianym pawilonem"
       width="1376"
       height="1440"
       loading="lazy"
-      class="h-64 w-full object-cover sm:h-80 lg:h-full lg:min-h-[720px]"
+      class="h-64 w-full object-cover sm:h-80 lg:h-[720px]"
     />
-    <!-- Text inset measured from the .fig: content starts 128px into the panel (x=848 at 1440) -->
-    <div class="flex items-center bg-forest px-6 py-14 lg:pl-32 lg:pr-[92px] lg:py-[120px]">
+    <!-- Text inset measured from the .fig: content starts at x=848 at 1440,
+         i.e. 160px into the panel (panel edge sits at x=688) -->
+    <div class="flex items-center bg-forest px-6 py-14 lg:pl-40 lg:pr-[92px] lg:py-[120px]">
       <div class="max-w-[500px]">
         <!-- Per the .fig source only "pasją" is italic — the "z" stays in Montserrat -->
         <SectionIntro label="O firmie" tone="light">
-          Tworzymy z <em class="font-sans font-medium italic tracking-normal">pasją</em>
+          Tworzymy<br class="hidden lg:inline" />
+          z <em class="font-sans font-medium italic tracking-normal">pasją</em>
         </SectionIntro>
         <p v-reveal="100" class="mt-10 max-w-[500px] text-body text-cream/90">
           Każdy projekt to nowe wyzwanie. Dlatego nasz zespół tworzą wykwalifikowani projektanci
