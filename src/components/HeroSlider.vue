@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { ref } from 'vue'
 import BaseButton from './ui/BaseButton.vue'
 import IconArrow from './ui/IconArrow.vue'
 import hero1 from '../assets/img/hero.webp'
@@ -31,7 +31,6 @@ const SLIDES = [
 
 const current = ref(0)
 const total = SLIDES.length
-const slide = computed(() => SLIDES[current.value])
 
 /* LCP guard: only slide 1 is mounted initially, so its ~250 kB image does not
    compete for bandwidth with the two hidden slides (~600 kB). The rest mount
@@ -83,19 +82,28 @@ function onPointerCancel() {
     <div class="container-page relative lg:min-h-[737px]">
       <!-- Text column: stays on the grid -->
       <div class="flex flex-col justify-center pb-10 pt-12 lg:min-h-[737px] lg:max-w-[599px] lg:pb-24 lg:pt-[92px]">
-        <Transition name="slide-copy" mode="out-in">
-          <div :key="current">
+        <!-- All three text blocks live stacked in one grid cell, so the section
+             is always as tall as the tallest slide — switching slides never
+             resizes the layout (crossfade instead of out-in remount). -->
+        <div class="grid">
+          <div
+            v-for="(item, i) in SLIDES"
+            :key="item.title"
+            class="col-start-1 row-start-1 transition-[opacity,transform] duration-[350ms] ease-out motion-reduce:transition-none"
+            :class="i === current ? 'opacity-100 translate-y-0' : 'pointer-events-none opacity-0 translate-y-4'"
+            :aria-hidden="i !== current"
+          >
             <div class="overflow-hidden">
-              <h1 v-reveal:mask class="font-display text-[36px] font-medium leading-[44px] lg:max-w-[500px] lg:text-hero lg:leading-[70px]">
-                {{ slide.title }}
-              </h1>
+              <component :is="i === 0 ? 'h1' : 'p'" v-reveal:mask class="font-display text-[36px] font-medium leading-[44px] lg:max-w-[500px] lg:text-hero lg:leading-[70px]">
+                {{ item.title }}
+              </component>
             </div>
             <!-- Hero copy is the one body text with ls:0 in the design (tracking-normal) -->
             <p v-reveal="100" class="mt-8 max-w-[489px] text-body tracking-normal text-ink/80 lg:mt-11">
-              {{ slide.copy }}
+              {{ item.copy }}
             </p>
           </div>
-        </Transition>
+        </div>
         <div v-reveal="200" class="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center lg:mt-[72px]">
           <BaseButton href="#kontakt" class="w-full sm:w-auto">Skontaktuj się z nami</BaseButton>
           <BaseButton href="#realizacje" variant="outline" class="w-full sm:w-auto">
@@ -154,25 +162,3 @@ function onPointerCancel() {
   </section>
 </template>
 
-<style scoped>
-.slide-copy-enter-active,
-.slide-copy-leave-active {
-  transition:
-    opacity 0.35s ease,
-    transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.slide-copy-enter-from {
-  opacity: 0;
-  transform: translateY(16px);
-}
-.slide-copy-leave-to {
-  opacity: 0;
-  transform: translateY(-10px);
-}
-@media (prefers-reduced-motion: reduce) {
-  .slide-copy-enter-active,
-  .slide-copy-leave-active {
-    transition-duration: 0.01s;
-  }
-}
-</style>
