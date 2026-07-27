@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
+import { useScrollLock } from '../composables/useScrollLock'
 import logoUrl from '../assets/icons/logo-giarddesign.svg'
 import searchIconUrl from '../assets/icons/icon-search.svg'
 import chevronIconUrl from '../assets/icons/icon-chevron-down.svg'
@@ -11,9 +12,9 @@ const NAV_LINKS = [
 ]
 
 const OFFER_LINKS = [
-  { label: 'Projekty', href: '#oferta' },
-  { label: 'Wizualizacje', href: '#oferta' },
-  { label: 'Realizacje', href: '#oferta' },
+  { label: 'Projekty', href: '#projekty' },
+  { label: 'Wizualizacje', href: '#wizualizacje' },
+  { label: 'Realizacje', href: '#realizacje' },
 ]
 
 const isOfferOpen = ref(false)
@@ -23,20 +24,30 @@ const searchQuery = ref('')
 
 const rootEl = ref<HTMLElement | null>(null)
 const searchInputEl = ref<HTMLInputElement | null>(null)
+const burgerEl = ref<HTMLButtonElement | null>(null)
+const { lock, unlock } = useScrollLock()
 
-function closeOverlays() {
+/* The element that opened the current overlay — focus goes back to it on close
+   (a11y: keyboard users must not lose their place). */
+let overlayTrigger: HTMLElement | null = null
+
+function closeOverlays(returnFocus = false) {
   isOfferOpen.value = false
   isSearchOpen.value = false
+  if (returnFocus) overlayTrigger?.focus()
+  overlayTrigger = null
 }
 
-function toggleOffer() {
+function toggleOffer(event: MouseEvent) {
   isSearchOpen.value = false
   isOfferOpen.value = !isOfferOpen.value
+  overlayTrigger = isOfferOpen.value ? (event.currentTarget as HTMLElement) : null
 }
 
-async function toggleSearch() {
+async function toggleSearch(event: MouseEvent) {
   isOfferOpen.value = false
   isSearchOpen.value = !isSearchOpen.value
+  overlayTrigger = isSearchOpen.value ? (event.currentTarget as HTMLElement) : null
   if (isSearchOpen.value) {
     await nextTick()
     searchInputEl.value?.focus()
@@ -49,9 +60,9 @@ function toggleMobile() {
 }
 
 function submitSearch() {
-  // Strona nie ma backendu — wyszukiwarka jest elementem UI z zadania.
+  // No backend — the search is a UI element required by the task.
   searchQuery.value = ''
-  isSearchOpen.value = false
+  closeOverlays(true)
 }
 
 /* Zamykanie klikiem poza headerem + klawiszem Esc. */
@@ -60,8 +71,11 @@ function onDocumentClick(event: MouseEvent) {
 }
 function onDocumentKeydown(event: KeyboardEvent) {
   if (event.key === 'Escape') {
-    closeOverlays()
-    isMobileOpen.value = false
+    closeOverlays(true)
+    if (isMobileOpen.value) {
+      isMobileOpen.value = false
+      burgerEl.value?.focus()
+    }
   }
 }
 onMounted(() => {
@@ -71,12 +85,22 @@ onMounted(() => {
 onBeforeUnmount(() => {
   document.removeEventListener('click', onDocumentClick)
   document.removeEventListener('keydown', onDocumentKeydown)
-  document.body.style.removeProperty('overflow')
+  setBackgroundInert(false)
 })
 
-/* Blokada scrolla strony, gdy otwarte jest menu mobilne. */
+/* While the fullscreen mobile menu is open: lock page scroll and make the
+   content behind the overlay inert, so keyboard/AT users cannot land in
+   visually hidden content (the native <dialog> lightbox gets this for free —
+   a custom overlay has to do it by hand). */
+function setBackgroundInert(inert: boolean) {
+  for (const el of document.querySelectorAll('main, footer')) {
+    el.toggleAttribute('inert', inert)
+  }
+}
 watch(isMobileOpen, (open) => {
-  document.body.style.overflow = open ? 'hidden' : ''
+  if (open) lock()
+  else unlock()
+  setBackgroundInert(open)
 })
 </script>
 
@@ -84,7 +108,7 @@ watch(isMobileOpen, (open) => {
   <header ref="rootEl" class="relative z-40 bg-white">
     <div class="container-page flex h-16 items-center justify-between lg:h-[72px]">
       <a href="#" aria-label="GiardDesign — strona główna" @click="isMobileOpen = false">
-        <img :src="logoUrl" alt="giarddesign" width="114" height="19" />
+        <img :src="logoUrl" alt="GiardDesign" width="114" height="19" />
       </a>
 
       <!-- Nawigacja desktop -->
@@ -118,7 +142,7 @@ watch(isMobileOpen, (open) => {
                   <a
                     :href="link.href"
                     class="block px-6 py-2.5 transition-colors hover:bg-cream hover:text-forest"
-                    @click="closeOverlays"
+                    @click="closeOverlays()"
                   >
                     {{ link.label }}
                   </a>
@@ -137,7 +161,7 @@ watch(isMobileOpen, (open) => {
           class="-mr-2 ml-3 p-2 transition-opacity hover:opacity-60"
           :aria-expanded="isSearchOpen"
           aria-controls="search-panel"
-          aria-label="Otwórz wyszukiwarkę"
+          :aria-label="isSearchOpen ? 'Zamknij wyszukiwarkę' : 'Otwórz wyszukiwarkę'"
           @click="toggleSearch"
         >
           <img :src="searchIconUrl" alt="" width="24" height="24" />
@@ -151,17 +175,18 @@ watch(isMobileOpen, (open) => {
           class="p-2 transition-opacity hover:opacity-60"
           :aria-expanded="isSearchOpen"
           aria-controls="search-panel"
-          aria-label="Otwórz wyszukiwarkę"
+          :aria-label="isSearchOpen ? 'Zamknij wyszukiwarkę' : 'Otwórz wyszukiwarkę'"
           @click="toggleSearch"
         >
           <img :src="searchIconUrl" alt="" width="24" height="24" />
         </button>
         <button
+          ref="burgerEl"
           type="button"
           class="group -mr-2 p-2"
           :aria-expanded="isMobileOpen"
           aria-controls="mobile-menu"
-          aria-label="Otwórz menu"
+          :aria-label="isMobileOpen ? 'Zamknij menu' : 'Otwórz menu'"
           @click="toggleMobile"
         >
           <span class="relative block h-4 w-6">
