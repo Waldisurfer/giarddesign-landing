@@ -17,7 +17,8 @@ import aboutImg from '../assets/img/about.webp'
       loading="lazy"
       class="h-64 w-full object-cover sm:h-80 lg:h-full lg:min-h-[720px]"
     />
-    <div class="flex items-center bg-forest px-6 py-14 lg:px-[92px] lg:py-[120px]">
+    <!-- Text inset measured from the .fig: content starts 128px into the panel (x=848 at 1440) -->
+    <div class="flex items-center bg-forest px-6 py-14 lg:pl-32 lg:pr-[92px] lg:py-[120px]">
       <div class="max-w-[500px]">
         <!-- Per the .fig source only "pasją" is italic — the "z" stays in Montserrat -->
         <SectionIntro label="O firmie" tone="light">
