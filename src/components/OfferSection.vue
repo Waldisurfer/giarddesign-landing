@@ -39,7 +39,7 @@ const CARDS = [
       <SectionIntro label="Oferta">
         Działamy <em class="font-sans font-medium italic tracking-normal">kompleksowo</em>
         <template #copy>
-          <p v-reveal="100" class="mt-8 max-w-[709px] text-body text-ink/80">
+          <p v-reveal="100" class="mt-8 max-w-[709px] text-body text-ink">
             Oferujemy kompletną obsługę inwestycji terenów zielonych. Projektujemy nowoczesne
             ogrody przydomowe oraz rezydencjonalne. Stworzymy dla Ciebie projekt, zwizualizujemy
             go i wcielimy w życie, a na każdym etapie posłużymy radą i wieloletnim doświadczeniem.

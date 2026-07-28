@@ -16,7 +16,7 @@ withDefaults(
     <p
       v-reveal
       class="text-label"
-      :class="tone === 'dark' ? 'text-forest' : 'text-cream/80'"
+      :class="tone === 'dark' ? 'text-forest' : 'text-cream'"
     >
       {{ label }}
     </p>

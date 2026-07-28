@@ -27,7 +27,7 @@ import aboutImg from '../assets/img/about.webp'
           Tworzymy<br class="hidden lg:inline" />
           z <em class="font-sans font-medium italic tracking-normal">pasją</em>
         </SectionIntro>
-        <p v-reveal="100" class="mt-10 max-w-[500px] text-body text-cream/90">
+        <p v-reveal="100" class="mt-10 max-w-[500px] text-body text-cream">
           Każdy projekt to nowe wyzwanie. Dlatego nasz zespół tworzą wykwalifikowani projektanci
           oraz architekci, których zadaniem jest rozpoznanie i realizacja potrzeb każdego Klienta.
           Nasza specjalizacja to przestrzenie nowoczesne, które charakteryzuje minimalizm,

@@ -14,7 +14,7 @@ withDefaults(
 const VARIANT_CLASSES: Record<Variant, string> = {
   solid: 'bg-forest text-cream hover:bg-forest-dark',
   outline: 'border border-forest text-forest hover:bg-forest/5',
-  'outline-light': 'border border-cream/80 text-cream hover:bg-white/10',
+  'outline-light': 'border border-cream text-cream hover:bg-white/10',
   light: 'bg-white text-ink hover:bg-cream',
 }
 </script>

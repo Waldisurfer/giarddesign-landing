@@ -19,7 +19,7 @@ const FOOTER_LINKS = [
         <div class="flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
           <img :src="logoLight" alt="GiardDesign" width="114" height="19" loading="lazy" />
           <div class="flex flex-col gap-5 sm:flex-row sm:items-center sm:gap-8">
-            <p class="text-body text-cream/90">Daj znać, co możemy dla Ciebie zrobić!</p>
+            <p class="text-body text-cream">Daj znać, co możemy dla Ciebie zrobić!</p>
             <BaseButton href="mailto:giarddesign@kontakt.pl" class="self-start sm:self-auto">
               Skontaktuj się z nami
             </BaseButton>
@@ -34,7 +34,7 @@ const FOOTER_LINKS = [
             <li v-for="link in FOOTER_LINKS" :key="link.label">
               <a
                 :href="link.href"
-                class="text-small text-cream/90 transition-colors hover:text-white"
+                class="text-small text-cream transition-colors hover:text-white"
                 :target="link.href.startsWith('http') ? '_blank' : undefined"
                 :rel="link.href.startsWith('http') ? 'noopener noreferrer' : undefined"
               >
@@ -43,12 +43,12 @@ const FOOTER_LINKS = [
             </li>
           </ul>
           <div class="flex flex-col gap-3 sm:flex-row sm:gap-10">
-            <a href="tel:000000000" class="text-small text-cream/90 transition-colors hover:text-white">
+            <a href="tel:000000000" class="text-small text-cream transition-colors hover:text-white">
               000-000-000
             </a>
             <a
               href="mailto:giarddesign@kontakt.pl"
-              class="text-small text-cream/90 transition-colors hover:text-white"
+              class="text-small text-cream transition-colors hover:text-white"
             >
               giarddesign@kontakt.pl
             </a>
@@ -57,8 +57,8 @@ const FOOTER_LINKS = [
 
         <!-- Row 3: copyright + agency credit (stays — recruitment requirement) -->
         <div class="mt-12 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between lg:mt-[116px]">
-          <p class="text-body text-cream/60">Prawa zastrzeżone © 2022</p>
-          <p class="flex items-center gap-2 text-body text-cream/60">
+          <p class="text-body text-cream">Prawa zastrzeżone © 2022</p>
+          <p class="flex items-center gap-2 text-body text-cream">
             made by
             <a
               href="https://adrespect.pl"
@@ -70,7 +70,7 @@ const FOOTER_LINKS = [
             </a>
           </p>
         </div>
-        <p class="mt-6 text-[12px] leading-relaxed text-white/60">
+        <p class="mt-6 text-[12px] leading-relaxed text-cream">
           Strona wykonana w ramach zadania rekrutacyjnego dla agencji adRespect.pl.
           Projekt graficzny © adRespect.
         </p>

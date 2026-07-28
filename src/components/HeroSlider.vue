@@ -102,7 +102,7 @@ function onPointerCancel() {
               </h1>
             </div>
             <!-- Hero copy is the one body text with ls:0 in the design (tracking-normal) -->
-            <p v-reveal="100" class="mt-8 max-w-[489px] text-body tracking-normal text-ink/80 lg:mt-11">
+            <p v-reveal="100" class="mt-8 max-w-[489px] text-body tracking-normal text-ink lg:mt-11">
               {{ item.copy }}
             </p>
           </div>

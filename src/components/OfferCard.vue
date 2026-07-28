@@ -26,7 +26,7 @@ defineProps<{
     <h3 class="mt-7 font-display text-[24px] font-medium leading-7 tracking-[-0.05em] lg:mt-8 lg:text-h3 lg:leading-8">
       {{ title }}
     </h3>
-    <p class="mt-3 text-small text-ink/70">{{ copy }}</p>
+    <p class="mt-3 text-small text-ink">{{ copy }}</p>
     <span class="mt-7 inline-flex items-center gap-2 self-start border-b border-forest pb-1 text-body text-forest lg:mt-auto">
       {{ linkLabel }}
       <IconArrow class="transition-transform duration-300 group-hover:translate-x-1.5" />

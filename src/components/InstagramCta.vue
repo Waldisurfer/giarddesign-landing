@@ -18,7 +18,7 @@ import BaseButton from './ui/BaseButton.vue'
           Znajdziesz nas na <em class="font-sans font-medium italic tracking-[1px]">Instagramie</em>.
         </h2>
         <div class="flex flex-col gap-4">
-          <p class="max-w-[160px] text-body text-cream/85">Śledź nasze najnowsze realizacje!</p>
+          <p class="max-w-[160px] text-body text-cream">Śledź nasze najnowsze realizacje!</p>
           <BaseButton
             href="https://www.instagram.com/"
             variant="light"
