@@ -38,28 +38,37 @@ function closeOverlays(returnFocus = false) {
   overlayTrigger = null
 }
 
-function toggleOffer(event: MouseEvent) {
-  /* On hover-capable devices the menu is already open from pointerenter —
-     a real mouse click should not immediately close it. Keyboard activation
-     (event.detail === 0) and touch still toggle. */
-  const hoverCapable = window.matchMedia('(hover: hover) and (pointer: fine)').matches
-  if (hoverCapable && event.detail > 0 && isOfferOpen.value) return
-  isSearchOpen.value = false
-  isOfferOpen.value = !isOfferOpen.value
-  overlayTrigger = isOfferOpen.value ? (event.currentTarget as HTMLElement) : null
-}
-
-/* Desktop-only hover open/close; touch pointers keep the click behaviour. */
+/* Desktop-only hover open/close; touch pointers fall through to the plain
+   anchor navigation. */
 function onOfferHover(open: boolean, event: PointerEvent) {
   if (event.pointerType === 'touch') return
-  /* WCAG 1.4.13: never hover-close while keyboard focus is inside the menu —
-     a stray pointerleave must not yank the panel from under a keyboard user. */
+  /* WCAG 1.4.13: never hover-close while KEYBOARD focus is inside the menu.
+     :focus-visible separates keyboard focus from focus left behind by a mouse
+     click — after a click the menu must still collapse on pointerleave. */
   const li = event.currentTarget as HTMLElement
-  if (!open && li.contains(document.activeElement)) return
+  const active = document.activeElement
+  if (!open && active && li.contains(active) && active.matches(':focus-visible')) return
   if (open) isSearchOpen.value = false
   isOfferOpen.value = open
   /* Hover interactions don't own focus — clear any stale click-set trigger,
      so a later Escape doesn't send focus to an unrelated button. */
+  overlayTrigger = null
+}
+
+/* Keyboard path: focusing the trigger (Tab) opens the panel so its links are
+   reachable; focus leaving the whole <li> closes it. Enter on the trigger
+   follows the #oferta anchor like a mouse click. */
+function onOfferFocusIn(event: FocusEvent) {
+  isSearchOpen.value = false
+  isOfferOpen.value = true
+  overlayTrigger = event.currentTarget instanceof HTMLElement
+    ? (event.currentTarget.querySelector('a[aria-controls="offer-dropdown"]') as HTMLElement | null)
+    : null
+}
+function onOfferFocusOut(event: FocusEvent) {
+  const li = event.currentTarget as HTMLElement
+  if (event.relatedTarget instanceof Node && li.contains(event.relatedTarget)) return
+  isOfferOpen.value = false
   overlayTrigger = null
 }
 
@@ -134,13 +143,22 @@ watch(isMobileOpen, (open) => {
       <!-- Nawigacja desktop -->
       <nav class="hidden items-center lg:flex" aria-label="Nawigacja główna">
         <ul class="flex items-center gap-5 text-small">
-          <li class="relative" @pointerenter="onOfferHover(true, $event)" @pointerleave="onOfferHover(false, $event)">
-            <button
-              type="button"
+          <li
+            class="relative"
+            @pointerenter="onOfferHover(true, $event)"
+            @pointerleave="onOfferHover(false, $event)"
+            @focusin="onOfferFocusIn"
+            @focusout="onOfferFocusOut"
+          >
+            <!-- The trigger is a real link: hover opens the menu, a click follows
+                 the anchor to the Oferta section (and the pointer cursor comes
+                 for free with the <a>). -->
+            <a
+              href="#oferta"
               class="flex items-center gap-2 px-4 py-2 transition-colors hover:text-forest"
               :aria-expanded="isOfferOpen"
               aria-controls="offer-dropdown"
-              @click="toggleOffer"
+              @click="closeOverlays()"
             >
               Oferta
               <img
@@ -151,7 +169,7 @@ watch(isMobileOpen, (open) => {
                 class="transition-transform duration-300 motion-reduce:transition-none"
                 :class="{ 'rotate-180': isOfferOpen }"
               />
-            </button>
+            </a>
             <!-- Panel offset -8px: its 24px item padding then puts the link text in
                  the exact column of the 'Oferta' label (which sits 16px in, px-4).
                  pt-4 = 16px: the li ends at y=56 inside the 72px bar, so the panel's
