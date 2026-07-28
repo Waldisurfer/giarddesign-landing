@@ -154,19 +154,21 @@ watch(isMobileOpen, (open) => {
             </button>
             <!-- Panel offset -8px: its 24px item padding then puts the link text in
                  the exact column of the 'Oferta' label (which sits 16px in, px-4).
-                 pt-3 bridges the visual gap — the cursor never leaves the <li>,
-                 so hover-open is stable. -->
+                 pt-4 = 16px: the li ends at y=56 inside the 72px bar, so the panel's
+                 visible edge starts exactly at the header's bottom (top of the hero
+                 photo). The padding doubles as a hover bridge — the cursor never
+                 leaves the <li>, so hover-open is stable. -->
             <Transition name="dropdown">
               <div
                 v-show="isOfferOpen"
                 id="offer-dropdown"
-                class="absolute -left-2 top-full w-52 pt-3"
+                class="absolute -left-2 top-full w-max pt-4"
               >
                 <ul class="bg-white py-3 shadow-[0_16px_40px_rgba(17,17,17,0.12)]">
                   <li v-for="link in OFFER_LINKS" :key="link.label">
                     <a
                       :href="link.href"
-                      class="block px-6 py-2.5 transition-colors hover:bg-cream hover:text-forest"
+                      class="block px-6 py-2.5 transition-colors hover:text-forest"
                       @click="closeOverlays()"
                     >
                       {{ link.label }}

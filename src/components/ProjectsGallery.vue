@@ -155,7 +155,7 @@ const lightboxIndex = ref<number | null>(null)
         <button
           v-if="!isExpanded"
           type="button"
-          class="absolute bottom-12 left-1/2 inline-flex min-h-[47px] -translate-x-1/2 items-center gap-2 rounded-full border border-ink px-[22px] text-body text-ink transition-colors duration-300 hover:bg-ink/5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-forest"
+          class="absolute bottom-12 left-1/2 inline-flex min-h-[47px] -translate-x-1/2 items-center gap-2 rounded-full border border-ink px-[22px] text-body text-ink transition-colors duration-300 hover:bg-ink/5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-forest lg:bottom-[3.333vw]"
           @click="expand"
         >
           Rozwiń
