@@ -52,8 +52,15 @@ function toggleOffer(event: MouseEvent) {
 /* Desktop-only hover open/close; touch pointers keep the click behaviour. */
 function onOfferHover(open: boolean, event: PointerEvent) {
   if (event.pointerType === 'touch') return
+  /* WCAG 1.4.13: never hover-close while keyboard focus is inside the menu —
+     a stray pointerleave must not yank the panel from under a keyboard user. */
+  const li = event.currentTarget as HTMLElement
+  if (!open && li.contains(document.activeElement)) return
   if (open) isSearchOpen.value = false
   isOfferOpen.value = open
+  /* Hover interactions don't own focus — clear any stale click-set trigger,
+     so a later Escape doesn't send focus to an unrelated button. */
+  overlayTrigger = null
 }
 
 async function toggleSearch(event: MouseEvent) {
@@ -83,7 +90,8 @@ function onDocumentClick(event: MouseEvent) {
 }
 function onDocumentKeydown(event: KeyboardEvent) {
   if (event.key === 'Escape') {
-    closeOverlays(true)
+    /* Only act when something is open — a bare Escape must not move focus. */
+    if (isOfferOpen.value || isSearchOpen.value) closeOverlays(true)
     if (isMobileOpen.value) {
       isMobileOpen.value = false
       burgerEl.value?.focus()
@@ -140,7 +148,7 @@ watch(isMobileOpen, (open) => {
                 alt=""
                 width="8"
                 height="5"
-                class="transition-transform duration-300"
+                class="transition-transform duration-300 motion-reduce:transition-none"
                 :class="{ 'rotate-180': isOfferOpen }"
               />
             </button>

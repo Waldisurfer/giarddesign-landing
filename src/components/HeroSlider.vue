@@ -93,10 +93,13 @@ function onPointerCancel() {
             :class="i === current ? 'opacity-100 translate-y-0' : 'pointer-events-none opacity-0 translate-y-4'"
             :aria-hidden="i !== current"
           >
+            <!-- Every slide title is an <h1>, but inactive slides are aria-hidden,
+                 so exactly one h1 is exposed to the accessibility tree at any time —
+                 the page never loses its top-level heading mid-slide (WCAG 1.3.1). -->
             <div class="overflow-hidden">
-              <component :is="i === 0 ? 'h1' : 'p'" v-reveal:mask class="font-display text-[36px] font-medium leading-[44px] lg:max-w-[500px] lg:text-hero lg:leading-[70px]">
+              <h1 v-reveal:mask class="font-display text-[36px] font-medium leading-[44px] lg:max-w-[500px] lg:text-hero lg:leading-[70px]">
                 {{ item.title }}
-              </component>
+              </h1>
             </div>
             <!-- Hero copy is the one body text with ls:0 in the design (tracking-normal) -->
             <p v-reveal="100" class="mt-8 max-w-[489px] text-body tracking-normal text-ink/80 lg:mt-11">
