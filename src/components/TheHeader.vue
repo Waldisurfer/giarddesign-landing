@@ -134,7 +134,11 @@ watch(isMobileOpen, (open) => {
 </script>
 
 <template>
-  <header ref="rootEl" class="relative z-40 bg-white">
+  <!-- While the fullscreen mobile menu is open the header pins to the viewport
+       top: the page may be scrolled anywhere, and the menu (fixed top-16)
+       assumes the bar with the close button sits right above it — otherwise a
+       strip of page content shows through and the X is off-screen. -->
+  <header ref="rootEl" class="z-40 bg-white" :class="isMobileOpen ? 'fixed inset-x-0 top-0' : 'relative'">
     <div class="container-page flex h-16 items-center justify-between lg:h-[72px]">
       <a href="#" aria-label="GiardDesign — strona główna" @click="isMobileOpen = false">
         <img :src="logoUrl" alt="GiardDesign" width="114" height="19" />
