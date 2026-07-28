@@ -37,7 +37,7 @@ import aboutImg from '../assets/img/about.webp'
         <div v-reveal="200" class="mt-9">
           <BaseButton href="#realizacje" variant="outline-light">
             Poznaj nas bliżej
-            <IconArrow :size="15" />
+            <IconArrow />
           </BaseButton>
         </div>
       </div>

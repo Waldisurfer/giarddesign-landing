@@ -117,7 +117,7 @@ function onKeydown(event: KeyboardEvent) {
         aria-label="Poprzednie zdjęcie"
         @click="step(-1)"
       >
-        <IconArrow direction="left" :size="28" />
+        <IconArrow variant="slider" direction="left" :size="28" />
       </button>
       <button
         type="button"
@@ -125,7 +125,7 @@ function onKeydown(event: KeyboardEvent) {
         aria-label="Następne zdjęcie"
         @click="step(1)"
       >
-        <IconArrow direction="right" :size="28" />
+        <IconArrow variant="slider" direction="right" :size="28" />
       </button>
     </figure>
   </dialog>

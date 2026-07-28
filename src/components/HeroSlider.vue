@@ -111,7 +111,7 @@ function onPointerCancel() {
           <BaseButton href="#kontakt" class="w-full sm:w-auto">Skontaktuj się z nami</BaseButton>
           <BaseButton href="#realizacje" variant="outline" class="w-full sm:w-auto">
             Zobacz nasze realizacje
-            <IconArrow direction="down" :size="15" />
+            <IconArrow direction="down" />
           </BaseButton>
         </div>
       </div>
@@ -149,7 +149,7 @@ function onPointerCancel() {
             aria-label="Poprzedni slajd"
             @click="go(-1)"
           >
-            <IconArrow direction="left" :size="40" />
+            <IconArrow variant="slider" direction="left" :size="40" />
           </button>
           <button
             type="button"
@@ -157,7 +157,7 @@ function onPointerCancel() {
             aria-label="Następny slajd"
             @click="go(1)"
           >
-            <IconArrow direction="right" :size="40" />
+            <IconArrow variant="slider" direction="right" :size="40" />
           </button>
         </div>
       </div>

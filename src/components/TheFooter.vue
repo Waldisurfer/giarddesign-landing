@@ -26,7 +26,7 @@ const FOOTER_LINKS = [
           </div>
         </div>
 
-        <hr class="mt-10 border-white/15 lg:mt-15" />
+        <hr class="mt-10 border-cream/75 lg:mt-15" />
 
         <!-- Row 2: links + contact details -->
         <div class="mt-8 flex flex-col gap-6 lg:mt-15 lg:flex-row lg:items-center lg:justify-between">

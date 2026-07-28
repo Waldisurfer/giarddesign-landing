@@ -159,7 +159,7 @@ const lightboxIndex = ref<number | null>(null)
           @click="expand"
         >
           Rozwiń
-          <IconArrow direction="down" :size="15" />
+          <IconArrow direction="down" />
         </button>
       </div>
     </div>
