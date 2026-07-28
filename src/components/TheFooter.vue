@@ -16,11 +16,12 @@ const FOOTER_LINKS = [
     <div class="container-page pb-10 pt-14 lg:pb-20 lg:pt-20">
       <div class="lg:mx-auto lg:max-w-[1040px]">
         <!-- Row 1: logo + tagline + CTA -->
-        <div class="flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
+        <!-- Mobile: everything centred; desktop keeps the Figma left/right rows. -->
+        <div class="flex flex-col items-center gap-8 lg:flex-row lg:items-center lg:justify-between">
           <img :src="logoLight" alt="GiardDesign" width="114" height="19" loading="lazy" />
-          <div class="flex flex-col gap-5 sm:flex-row sm:items-center sm:gap-8">
+          <div class="flex flex-col items-center gap-5 text-center sm:flex-row sm:items-center sm:gap-8 sm:text-left">
             <p class="text-body text-cream">Daj znać, co możemy dla Ciebie zrobić!</p>
-            <BaseButton href="mailto:giarddesign@kontakt.pl" class="self-start sm:self-auto">
+            <BaseButton href="mailto:giarddesign@kontakt.pl" class="self-center sm:self-auto">
               Skontaktuj się z nami
             </BaseButton>
           </div>
@@ -29,8 +30,8 @@ const FOOTER_LINKS = [
         <hr class="mt-10 border-cream/75 lg:mt-15" />
 
         <!-- Row 2: links + contact details -->
-        <div class="mt-8 flex flex-col gap-6 lg:mt-15 lg:flex-row lg:items-center lg:justify-between">
-          <ul class="flex flex-wrap gap-x-8 gap-y-3">
+        <div class="mt-8 flex flex-col items-center gap-6 lg:mt-15 lg:flex-row lg:items-center lg:justify-between">
+          <ul class="flex flex-wrap justify-center gap-x-8 gap-y-3 lg:justify-start">
             <li v-for="link in FOOTER_LINKS" :key="link.label">
               <a
                 :href="link.href"
@@ -42,7 +43,7 @@ const FOOTER_LINKS = [
               </a>
             </li>
           </ul>
-          <div class="flex flex-col gap-3 sm:flex-row sm:gap-10">
+          <div class="flex flex-col items-center gap-3 sm:flex-row sm:gap-10">
             <a href="tel:000000000" class="text-small text-cream transition-colors hover:text-white">
               000-000-000
             </a>
@@ -56,7 +57,7 @@ const FOOTER_LINKS = [
         </div>
 
         <!-- Row 3: copyright + agency credit (stays — recruitment requirement) -->
-        <div class="mt-12 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between lg:mt-[116px]">
+        <div class="mt-12 flex flex-col items-center gap-4 sm:flex-row sm:items-center sm:justify-between lg:mt-[116px]">
           <p class="text-body text-cream">Prawa zastrzeżone © 2022</p>
           <p class="flex items-center gap-2 text-body text-cream">
             made by
@@ -70,7 +71,7 @@ const FOOTER_LINKS = [
             </a>
           </p>
         </div>
-        <p class="mt-6 text-[12px] leading-relaxed text-cream">
+        <p class="mt-6 text-center text-[12px] leading-relaxed text-cream sm:text-left">
           Strona wykonana w ramach zadania rekrutacyjnego dla agencji adRespect.pl.
           Projekt graficzny © adRespect.
         </p>
